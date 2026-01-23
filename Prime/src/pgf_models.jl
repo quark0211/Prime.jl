@@ -1,0 +1,57 @@
+# src/gf_models.jl
+
+
+function model_gf2(ps,z,sel)
+    z1,z2 = z
+    if sel == 1
+        ρ,τ = ps
+        return exp(ρ*(z2-1))*exp(ρ*τ*(z1-1))
+    elseif sel == 2
+        ρ,b,τ = ps
+        p = 1/(b+1)
+        return (p/(1-(1-p)*z2))^ρ*exp(ρ*τ*b*(z1-1)/(1-b*(z1-1)))
+    elseif sel == 4
+        ρ,σon,σoff,τ = ps
+        ρ = min(600,ρ)
+        σon = min(40,σon)
+        σoff = min(40,σoff)
+        τ = min(20,τ)
+        z1,z2 = z
+        dm=1.
+        u1=z1-1
+        u2=z2-1
+        x1=ρ*u1/dm
+        x2=ρ*u2/dm
+        α=σon/(σoff+σon)
+        r=1+(σoff+σon)/dm-x1
+        θ=sqrt(Complex(((σoff+σon)/dm-x1)^2+4*σon*x1/dm))
+        v1=dm*(r+θ-1)/2
+        v2=dm*(r-θ-1)/2
+        G=(v1*exp(-v2*τ)-v2*exp(-v1*τ))/(dm*θ)*pFq((σon/dm, ), ((σon+σoff)/dm, ), x2)+ρ*u1*(exp(-v2*τ)-exp(-v1*τ))/(dm*θ)*σon/(σoff+σon)*pFq((1+σon/dm, ), (1+(σoff+σon)/dm, ), x2)
+
+        return real(G)
+
+    elseif sel == 3
+        ρ,σu,σb,λ,τ = ps
+        u1=z1-1
+        u2=z2-1
+        x1=ρ*u1
+        x2=ρ*u2
+        α=1/(λ*σb+λ*σu+σb*σu)
+        m=λ+σb+σu-x1
+        n=λ*σu+λ*σb+σb*σu-(λ+σu)*x1
+        p=-λ*σu*x1
+        k=(-2*m^3+9*m*n-27*p+3*sqrt(3)*sqrt(Complex((-m^2*n^2+4*n^3+4*m^3*p-18*m*n*p+27*p^2))))^(1/3)
+        r1=-m/3-2^(1/3)*(-m^2+3*n)/(3*k)+k/(3*2^(1/3))
+        a=-m/3+2^(1/3)*(-m^2+3*n)/(6*k)-k/(6*2^(1/3))
+        b=2^(1/3)*(-m^2+3*n)*sqrt(3)/(6*k)+sqrt(3)*k/(6*2^(1/3))
+        Β=(a-r1)^2+b^2
+        θ=sqrt(Complex((λ-σb)^2-2*σu*(λ+σb)+σu^2))
+        H0=pFq((λ,σu), ((λ+σb+σu)/2-θ/2,(λ+σb+σu)/2+θ/2), x2)
+        H1=pFq((λ,σu), (1+(λ+σb+σu)/2-θ/2,1+(λ+σb+σu)/2+θ/2), x2)
+        H2=pFq((1+λ,σu), (1+(λ+σb+σu)/2-θ/2,1+(λ+σb+σu)/2+θ/2), x2)
+        H3=pFq((1+λ,1+σu), (1+(λ+σb+σu)/2-θ/2,1+(λ+σb+σu)/2+θ/2), x2)
+        Gf=H0+α*(-σb*σu+exp(r1*τ)*x1*λ*σb*σu*(r1+σu)/(r1*Β)-exp(a*τ)*λ*x1*σu*σb*((a^2+b^2)+(2*a-r1)*σu)*cos(b*τ)/(Β*(a^2+b^2))+exp(a*τ)*λ*x1*σu*σb*((a^2+b^2)*(a-r1)+(a^2-b^2-a*r1)*σu)*sin(b*τ)/(b*Β*(a^2+b^2)))*H1+α*(-λ*σb+exp(r1*τ)*x1*λ^2*σb*σu/(r1*Β)-exp(a*τ)*λ^2*x1*σb*σu*(2*a-r1)*cos(b*τ)/(Β*(a^2+b^2))+exp(a*τ)*λ^2*x1*σb*σu*(a^2-a*r1-b^2)*sin(b*τ)/(b*Β*(a^2+b^2)))*H2+α*(-λ*σu+exp(r1*τ)*x1*λ*σu*(r1+λ)*(r1+σu)/(r1*Β)-exp(a*τ)*λ*x1*σu*((a^2+b^2)*(r1+λ+σu)+(2*a-r1)*λ*σu)*cos(b*τ)/(Β*(a^2+b^2))+exp(a*τ)*λ*x1*σu*((a^2+b^2)*(b^2+(a-r1)*(a+λ))+((a^2+b^2)*(a-r1)+(a^2-b^2-a*r1)*λ)*σu)*sin(b*τ)/(b*Β*(a^2+b^2)))*H3
+        return real(Gf)
+    end
+end
