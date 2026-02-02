@@ -2,6 +2,7 @@
 import ..model_gf2
 import ..his_gf
 
+
 function obj_func(ps, sel, Xl, PF::Vector, PF2::AbstractMatrix,
                   z::Vector, wll::Vector, γn::Vector, hi::Vector)
     θ = [vcat(ps[1]*Xl[i], ps[2:sel]) for i in eachindex(Xl)]
@@ -59,7 +60,7 @@ function compute_dist(resul, rd_gf_p, wl, k, n, sel, z, β)
     return dist2
 end
 
-function prime_cluster(rdn::AbstractMatrix, rdm::AbstractMatrix, β::AbstractVector, k::Int;
+function prime_cluster(rdn, rdm, β, k::Int;
                        sel::Int = 4,
                        maxiter::Int = 20,
                        z_min::Float64 = 0.95,
@@ -69,7 +70,6 @@ function prime_cluster(rdn::AbstractMatrix, rdm::AbstractMatrix, β::AbstractVec
     n, p = size(rdm)
     @assert size(rdn) == (n, p) 
 
-    # 2）z 网格 & 权重
     xl, wl = gausslegendre(n_z)
     zo = (z_max - z_min)/2 .* xl .+ (z_max + z_min)/2
     z  = [(zo[i], zo[j]) for i in 1:length(zo), j in 1:length(zo)]
@@ -104,11 +104,11 @@ function prime_cluster(rdn::AbstractMatrix, rdm::AbstractMatrix, β::AbstractVec
     tot_old = Inf
 
     for iter in 1:maxiter
-        results_θ_t = map(gj -> infer_theta_ini(rd_gf[:, :, gj], γ, sel, β, z, wl, k), 1:p)
+        results_θ_t = pmap(gj -> infer_theta_ini(rd_gf[:, :, gj], γ, sel, β, z, wl, k), 1:p)
         results_θ  = Matrix(hcat(results_θ_t...)')   # p × (sel*k)
 
-        results_dist = map(gj -> compute_dist(results_θ[gj, :], rd_gf[:, :, gj], wl, k, n, sel, z, β), 1:p)
-        D = sum(results_dist)  # n × k
+        results_dist = pmap(gj -> compute_dist(results_θ[gj, :], rd_gf[:, :, gj], wl, k, n, sel, z, β), 1:p)
+        D = sum(results_dist) 
 
         dij   = (1/k) .* D .^ (s - 1)
         normd = (1/k) .* sum(D .^ s, dims=2)

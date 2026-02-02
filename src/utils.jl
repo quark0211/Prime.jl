@@ -1,7 +1,8 @@
 # ====== 聚类会用到的 ======
 
-"单个细胞的经验 GF"
-function his_gf(rdn_val::Real, rdm_val::Real, z)
+
+
+function his_gf(rdn_val, rdm_val, z)
     z1, z2 = z
     return z1^rdn_val * z2^rdm_val
 end
@@ -125,7 +126,7 @@ function cus_hist2(data1::Vector,data2::Vector)
     return Weights
 end
 
-function beta_kde_volume_factor(β_1::AbstractVector{<:Real};
+function beta_kde_volume_factor(β_1;
                                 nquad::Int=13, min_n::Int=30)
     β = Float64.(β_1)
     if length(β) < min_n
@@ -164,7 +165,7 @@ function Evec_pgf_from_hist(hist_data, T)
     return out
 end
 
-function ensure_positive_definite(matrix::Matrix{Float64}, ϵ::Float64 = 1e-8)
+function ensure_positive_definite(matrix, ϵ::Float64 = 1e-8)
     A = Symmetric(matrix)
     λmin = minimum(eigvals(A))
     if λmin < 0

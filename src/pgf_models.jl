@@ -1,6 +1,5 @@
 # src/gf_models.jl
 
-
 function model_gf2(ps,z,sel)
     z1,z2 = z
     if sel == 1

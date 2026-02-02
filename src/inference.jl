@@ -45,7 +45,7 @@ function BayInf_gene_pgf!(gi::Int,
                           genes,
                           rdn, rdm, β,
                           clusters,
-                          base_positions::Vector{Vector{Int}},
+                          base_positions,
                           t, T,
                           out_ch::RemoteChannel;
                           nsigma::Float64 = 5.0,
@@ -114,12 +114,12 @@ function BayInf_gene_pgf!(gi::Int,
 end
 
 
-function prime_infer_to_csv(rdm::AbstractMatrix,
-                            rdn::AbstractMatrix,
-                            β::AbstractVector,
-                            cluster_labels::AbstractVector{<:Integer},
+function prime_infer_to_csv(rdn,
+                            rdm,
+                            β,
+                            cluster_labels,
                             genes,
-                            outfile::String;
+                            outfile;
                             t = default_t(),
                             T = default_T(t),
                             nsigma::Real = 5.0,
