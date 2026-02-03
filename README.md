@@ -21,7 +21,7 @@ https://julialang.org/downloads/
 
 ### 2. Install Julia (platform guide)
 Follow the official platform-specific installation instructions:  
-https://julialang.org/downloads/platform/
+https://julialang.org/downloads/oldreleases/
 
 ### 3. Verify your Julia installation
 After installation, confirm that Julia is available in your terminal:
