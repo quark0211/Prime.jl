@@ -7,7 +7,6 @@ The package exposes a concise public API with two primary entry points:
 - **`prime_cluster`**: performs **cell clustering** under the PGF-based modeling framework.
 - **`prime_infer_to_csv`**: performs **Bayesian inference** of **gene- and cluster-specific model parameters**, and **exports the inferred parameters to CSV** for downstream analysis and quality control.
 
-A 
 A complete, runnable usage example is provided here:  
 https://github.com/Li-shiyue/Prime.jl/blob/main/examples/quickstart.jl
 
