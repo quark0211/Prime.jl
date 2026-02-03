@@ -8,7 +8,7 @@ Manifest.toml
 .vscode/
 .DS_Store
 
-# 输出结果/大文件
+# Output
 *.loom
 *.h5
 *.hdf5
