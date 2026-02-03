@@ -1,32 +1,38 @@
 # Prime.jl
 
-Prime.jl is a Julia package (under active development) hosted on GitHub.  
-It is installable directly from this repository (no General registry registration required).
+**Prime.jl** is a Julia package that implements a **cell clustering method based on a biophysical gene-expression model**, formulated under the **Probability Generating Function (PGF)** framework.
 
----
+The package exposes a concise public API with two primary entry points:
 
-## 1) Prerequisites: Install Julia
+- **`prime_cluster`**: performs **cell clustering** under the PGF-based modeling framework.
+- **`prime_infer_to_csv`**: performs **Bayesian inference** of **gene- and cluster-specific model parameters**, and **exports the inferred parameters to CSV** for downstream analysis and quality control.
 
-### Recommended Julia version
-Prime.jl currently targets **Julia 1.11.x** (your `Project.toml` compat is pinned around Julia 1.11 stdlibs and package versions).
+A 
+A complete, runnable usage example is provided here:  
+https://github.com/Li-shiyue/Prime.jl/blob/main/examples/quickstart.jl
 
-### Install options
-**Option A — Official download (GUI installers / binaries)**  
-Download Julia from the official downloads page:  :contentReference[oaicite:0]{index=0}
+## 1) Install Julia
 
-**Option B — Platform-specific installation guide**  
-If you want step-by-step platform instructions (Windows/macOS/Linux): :contentReference[oaicite:1]{index=1}
+Prime.jl is developed and tested with **Julia 1.11.x**.
 
-> Quick check after installation:
-> ```bash
-> julia --version
-> ```
+### 1. Download Julia (official installer)
+Download the Julia installer for your operating system from the official website:  
+https://julialang.org/downloads/
 
----
+### 2. Install Julia (platform guide)
+Follow the official platform-specific installation instructions:  
+https://julialang.org/downloads/platform/
 
-## 2) Install Prime.jl (direct from GitHub)
+### 3. Verify your Julia installation
+After installation, confirm that Julia is available in your terminal:
 
-Open Julia and run:
+```bash
+julia --version
+```
+
+## 2) Install Prime.jl 
+Prime.jl can be installed directly from this GitHub repository (no General registry registration required).
+Start Julia and run:
 
 ```julia
 using Pkg
