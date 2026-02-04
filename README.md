@@ -2,7 +2,7 @@
 
 **Prime.jl** is a Julia package that implements a **cell clustering method based on a biophysical gene-expression model**, formulated under the **Probability Generating Function (PGF)** framework.
 
-The package exposes a concise public API with two primary entry points:
+The package provides a concise public interface with two main entry-point functions:
 
 - **`prime_cluster`**: performs **cell clustering** under the PGF-based modeling framework.
 - **`prime_infer_to_csv`**: performs **Bayesian inference** of **gene- and cluster-specific model parameters**, and **exports the inferred parameters to CSV** for downstream analysis and quality control.
