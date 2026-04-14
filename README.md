@@ -8,7 +8,7 @@ The package provides a concise public interface with two main entry-point functi
 - **`prime_infer_to_csv`**: performs **Bayesian inference** of **gene- and cluster-specific model parameters**, and **exports the inferred parameters to CSV** for downstream analysis and quality control.
 
 A complete, runnable usage example is provided here:  
-https://github.com/Li-shiyue/Prime.jl/blob/main/examples/quickstart.jl
+https://github.com/quark0211/Prime-analysis/tree/main/run_prime
 
 ## 1) Install Julia
 
@@ -35,7 +35,7 @@ Start Julia and run:
 
 ```julia
 using Pkg
-Pkg.develop(PackageSpec(url="https://github.com/Li-shiyue/Prime.jl.git"))
+Pkg.develop(PackageSpec(url="https://github.com/quark0211/Prime.jl"))
 using Prime
 ```
 
