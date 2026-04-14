@@ -37,6 +37,7 @@ Start Julia and run:
 using Pkg
 Pkg.develop(PackageSpec(url="https://github.com/Li-shiyue/Prime.jl.git"))
 using Prime
+```
 
-The application of Prime.jl can be found at https://github.com/quark0211/Prime-analysis
+The application of Prime.jl can be found at https://github.com/quark0211/Prime-analysis.
 
